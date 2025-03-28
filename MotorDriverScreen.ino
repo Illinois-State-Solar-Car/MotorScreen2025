@@ -19,7 +19,7 @@ All text above, and the splash screen below must be included in any redistributi
 #include <Wire.h>
 #include <SPI.h>
 #include <Adafruit_GFX.h>
-#include <Adafruit_SSD1305.h>
+#include <Adafruit_SSD1325.h>
 
 // Used for software SPI
 
@@ -33,7 +33,7 @@ All text above, and the splash screen below must be included in any redistributi
 // software SPI
 //Adafruit_SSD1305 display(128, 32, OLED_MOSI, OLED_CLK, OLED_DC, OLED_RESET, OLED_CS);
 // hardware SPI - use 7Mhz (7000000UL) or lower because the screen is rated for 4MHz, or it will remain blank!
-Adafruit_SSD1305 display(128, 64, &SPI, OLED_DC, OLED_RESET, OLED_CS, 4000000UL);
+Adafruit_SSD1325 display(OLED_DC, OLED_RESET, OLED_CS);
 
 double speed = 35.0;
 double eff = 96.0;
@@ -49,10 +49,7 @@ void setup()   {
   Serial.begin(9600);
   Serial.println("SSD1305 OLED test");
   
-  if ( ! display.begin(0x3C) ) {
-     Serial.println("Unable to initialize OLED");
-     while (1) yield();
-  }
+  display.begin();
 
   // init done
   display.display(); // show splashscreen
